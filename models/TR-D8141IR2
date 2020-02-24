@@ -1,11 +1,16 @@
 ; Model name: TR-D8141IR2
 ; Vendor: Trassir
+
 AUTH=basic
 LOGIN="admin"
 PASSWORD="admin"
 DEFAULT_IP="192.168.0.153"
 PROTO="http"
+URL_NET="cn/admin/tcpip.asp"
+METHOD="POST"
+VARS="root_Network_BootProto:dhcp,action:modify"
 
 
 ;Some responce marks
 MARK_LOGIN_OK="WizardForm"
+MARK_NET_OK="value=\"dhcp\" checked"

@@ -7,6 +7,7 @@ $usageNotice = 'Usage: php camconf --model=[model]';
 if (ubRouting::optionCliCount() == 2) {
     if (ubRouting::optionCliCheck('model')) {
         $camModel = ubRouting::optionCli('model');
+
         if (!empty($camModel)) {
             if (file_exists(MODELS_PATH . $camModel)) {
                 $modelConfig = parse_ini_file(MODELS_PATH . $camModel);
@@ -18,12 +19,35 @@ if (ubRouting::optionCliCount() == 2) {
                     $cameraInterface->setBasicAuth($modelConfig['LOGIN'], $modelConfig['PASSWORD']);
                 }
 
+                $cameraInterface->setHeadersReturn(true);
 
                 $login = $cameraInterface->response($baseUrl);
                 if (ispos($login, $modelConfig['MARK_LOGIN_OK'])) {
                     show_window('', 'Login: OK');
+                    if (isset($modelConfig['METHOD']) and isset($modelConfig['VARS'])) {
+                        $modelVars = $modelConfig['VARS'];
+                        if (!empty($modelVars)) {
+                            $modelVars = explode(",", $modelVars);
+                            if (!empty($modelVars)) {
+                                foreach ($modelVars as $io => $eachVar) {
+                                    if ($modelConfig['METHOD'] == 'POST') {
+                                        $eachVar = explode(':', $eachVar);
+                                        $cameraInterface->dataPost($eachVar[0], $eachVar[1]);
+                                    }
+                                }
+
+                                //changing data
+                                $netConfResult = $cameraInterface->response($baseUrl . '/' . $modelConfig['URL_NET']);
+                                if (ispos($netConfResult, $modelConfig['MARK_NET_OK'])) {
+                                    show_window('', 'Network config: OK');
+                                } else {
+                                    show_error('Network config: failed');
+                                }
+                            }
+                        }
+                    }
                 } else {
-                    show_error('Login to '.$modelConfig['DEFAULT_IP'].' failed');
+                    show_error('Login to ' . $modelConfig['DEFAULT_IP'] . ' failed');
                 }
             } else {
                 show_error('Unknown camera model');
