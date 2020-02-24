@@ -6,11 +6,11 @@ LOGIN="admin"
 PASSWORD="admin"
 DEFAULT_IP="192.168.1.188"
 PROTO="http"
-URL_NET="cn/admin/tcpip.asp"
+URL_NET="goform/formTcpIp"
 METHOD="POST"
-VARS="root_Network_BootProto:dhcp,action:modify"
+VARS="root_Network_BootProto:dhcp,action:modify,root_Network_ZeroConf_Enabled:yes,root_Network_Broadcast:192.168.255.255,root_Network_Enabled:,returnPage:/cn/admin/tcpip.asp,root_Network_link:1,root_Network_MTU:1500,replyfirst:no,root_ddns_permit:yes,root_tcpip_permit:yes"
 
 
 ;Some responce marks
 MARK_LOGIN_OK="WizardForm"
-MARK_NET_OK="value=\"dhcp\" checked"
+MARK_NET_OK="value=\"dhcp\" checked "

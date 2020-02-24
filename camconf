@@ -34,11 +34,13 @@ if (ubRouting::optionCliCount() == 2) {
                                         if ($modelConfig['METHOD'] == 'POST') {
                                             $eachVar = explode(':', $eachVar);
                                             $cameraInterface->dataPost($eachVar[0], $eachVar[1]);
+                                            print($eachVar[0].'->'.$eachVar[1].PHP_EOL);
                                         }
                                     }
 
                                     //changing data
                                     $netConfResult = $cameraInterface->response($baseUrl . '/' . $modelConfig['URL_NET']);
+                                    print($netConfResult);
                                     $cameraInterface->dataPost(); //flush vars
                                     $netConfLastState = $cameraInterface->response($baseUrl . '/' . $modelConfig['URL_NET']); //second request
                                     if (ispos($netConfLastState, $modelConfig['MARK_NET_OK'])) {
