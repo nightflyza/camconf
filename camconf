@@ -1,0 +1,23 @@
+<?php
+
+include ('api/autoloader.php');
+define('MODELS_PATH', './models/');
+$usageNotice = 'Usage: php camconf --model=[model]';
+
+if (ubRouting::optionCliCount() == 2) {
+    if (ubRouting::optionCliCheck('model')) {
+        $camModel = ubRouting::optionCli('model');
+        if (!empty($camModel)) {
+            if (file_exists(MODELS_PATH . $camModel)) {
+                $modelConfig = parse_ini_file(MODELS_PATH . $camModel);
+                print_r($modelConfig);
+            } else {
+                show_error('unknown model');
+            }
+        }
+    } else {
+        show_error($usageNotice);
+    }
+} else {
+    show_error($usageNotice);
+}
