@@ -14,17 +14,17 @@ spl_autoload_register(function ($className) {
     $apiClassFileName = $api_directory . $libs_directory . 'api.' . $classFileName . '.php';
    
     if (strpos($className, 'nya_') !== false) {
-        $notOrmTable = str_replace("nya_", '', $className);
-
-        $exec = '
-            class ' . $className . ' extends NyanORM {
-                public function __construct() {
-                  parent::__construct();
-                   $this->tableName = "' . $notOrmTable . '";
-                 }
-             }';
-
-        eval($exec); //automatic models generation
+//        $notOrmTable = str_replace("nya_", '', $className);
+//
+//        $exec = '
+//            class ' . $className . ' extends NyanORM {
+//                public function __construct() {
+//                  parent::__construct();
+//                   $this->tableName = "' . $notOrmTable . '";
+//                 }
+//             }';
+//
+//        eval($exec); //automatic models generation
     } else {
         if (file_exists($apiClassFileName)) {
             include $apiClassFileName;

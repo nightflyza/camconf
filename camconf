@@ -10,9 +10,23 @@ if (ubRouting::optionCliCount() == 2) {
         if (!empty($camModel)) {
             if (file_exists(MODELS_PATH . $camModel)) {
                 $modelConfig = parse_ini_file(MODELS_PATH . $camModel);
-                print_r($modelConfig);
+                $cameraInterface = new OmaeUrl();
+
+                //login to the camera
+                $baseUrl = $modelConfig['PROTO'] . '://' . $modelConfig['DEFAULT_IP'];
+                if ($modelConfig['AUTH'] == 'basic') {
+                    $cameraInterface->setBasicAuth($modelConfig['LOGIN'], $modelConfig['PASSWORD']);
+                }
+
+
+                $login = $cameraInterface->response($baseUrl);
+                if (ispos($login, $modelConfig['MARK_LOGIN_OK'])) {
+                    show_window('', 'Login: OK');
+                } else {
+                    show_error('Login to '.$modelConfig['DEFAULT_IP'].' failed');
+                }
             } else {
-                show_error('unknown model');
+                show_error('Unknown camera model');
             }
         }
     } else {
