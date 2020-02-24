@@ -4,7 +4,7 @@
 AUTH=basic
 LOGIN="admin"
 PASSWORD="admin"
-DEFAULT_IP="192.168.0.153"
+DEFAULT_IP="192.168.1.188"
 PROTO="http"
 URL_NET="cn/admin/tcpip.asp"
 METHOD="POST"
