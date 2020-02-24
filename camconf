@@ -38,7 +38,7 @@ if (ubRouting::optionCliCount() == 2) {
 
                                 //changing data
                                 $netConfResult = $cameraInterface->response($baseUrl . '/' . $modelConfig['URL_NET']);
-
+                                $cameraInterface->dataPost(); //flush vars
                                 $netConfLastState = $cameraInterface->response($baseUrl . '/' . $modelConfig['URL_NET']); //second request
                                 if (ispos($netConfLastState, $modelConfig['MARK_NET_OK'])) {
                                     show_window('', 'Network config: OK');
