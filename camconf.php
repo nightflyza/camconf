@@ -2,7 +2,7 @@
 
 include ('api/autoloader.php');
 define('MODELS_PATH', './models/');
-$usageNotice = 'Usage: php camconf --model=[model] or php camconf --listmodels';
+$usageNotice = 'Usage: php camconf.php --model=[model] or php camconf.php --listmodels';
 
 if (ubRouting::optionCliCount() == 2) {
     if (ubRouting::optionCliCheck('model') OR ubRouting::optionCliCheck('listmodels', false)) {
@@ -40,17 +40,6 @@ if (ubRouting::optionCliCount() == 2) {
 
                                     //changing data
                                     $netConfResult = $cameraInterface->response($baseUrl . '/' . $modelConfig['URL_NET']);
-
-                                    //print($netConfResult);
-                                    /**
-                                    $cameraInterface->dataPost(); //flush vars
-                                    $netConfLastState = $cameraInterface->response($baseUrl . '/' . $modelConfig['URL_NET']); //second request
-                                    if (ispos($netConfLastState, $modelConfig['MARK_NET_OK'])) {
-                                        show_window('', 'Network config: OK');
-                                    } else {
-                                        show_error('Network config: FAILED');
-                                    }
-                                    **/
                                 }
                             }
                         }
